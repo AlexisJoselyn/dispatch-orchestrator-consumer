@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: 'mongo:latest'
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_DATABASE: shipmentsdb
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+
+  redis:
+    image: 'redis:latest'
+    ports:
+      - "6379:6379"
