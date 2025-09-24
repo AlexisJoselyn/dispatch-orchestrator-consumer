@@ -16,6 +16,10 @@ public class ShipmentEntity {
 
     private String orderId;      // id de la orden relacionada
     private String customerId;   // cliente que recibe
+    private String address;       // 
+    private String city;          // 
+    private String postalCode;    // 
+    private String serviceLevel;  // 
     private String origin;       // dirección/almacén de salida
     private String destination;  // dirección de entrega
     private String status;       // estado del envío (ej: PENDING, DISPATCHED, DELIVERED, FAILED)
