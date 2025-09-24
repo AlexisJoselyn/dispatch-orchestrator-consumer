@@ -4,6 +4,10 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Representa un envío dentro del sistema de logística.
+ * Se persiste en MongoDB en la colección "shipments".
+ */
 @Document("shipments")
 @Data
 @Builder
@@ -11,27 +15,58 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 public class ShipmentEntity {
 
+    /** Identificador único del envío (equivalente al requestId del productor). */
     @Id
-    private String shipmentId;   // identificador único del envío (equivalente al requestId del profe)
+    private String shipmentId;
 
-    private String orderId;      // id de la orden relacionada
-    private String customerId;   // cliente que recibe
-    private String address;       // 
-    private String city;          // 
-    private String postalCode;    // 
-    private String serviceLevel;  // 
-    private String origin;       // dirección/almacén de salida
-    private String destination;  // dirección de entrega
-    private String status;       // estado del envío (ej: PENDING, DISPATCHED, DELIVERED, FAILED)
+    /** Identificador de la orden asociada al envío. */
+    private String orderId;
 
-    private Long requestedAt;    // cuándo se creó la solicitud
-    private Long dispatchedAt;   // cuándo se despachó
-    private Long deliveredAt;    // cuándo se entregó
+    /** Identificador del cliente receptor. */
+    private String customerId;
 
-    private String correlationId; // trazabilidad (útil si pasa por varios servicios)
-    private Integer attemptNumber; // nro de intentos de entrega
+    /** Dirección de entrega. */
+    private String address;
 
-    // metadatos adicionales
-    private String rawPayload;   // payload original recibido del evento
-    private String errorMessage; // si hubo algún error en el proceso
+    /** Ciudad de entrega. */
+    private String city;
+
+    /** Código postal de la dirección de entrega. */
+    private String postalCode;
+
+    /** Nivel de servicio (ej: estándar, express, etc.). */
+    private String serviceLevel;
+
+    /** Punto de origen (almacén o dirección de salida). */
+    private String origin;
+
+    /** Punto de destino (dirección de entrega final). */
+    private String destination;
+
+    /** Estado actual del envío (ej: PENDING, DISPATCHED, DELIVERED, FAILED). */
+    private String status;
+
+    /** Marca de tiempo en la que se creó la solicitud de envío. */
+    private Long requestedAt;
+
+    /** Marca de tiempo en la que el envío fue despachado. */
+    private Long dispatchedAt;
+
+    /** Marca de tiempo en la que el envío fue entregado. */
+    private Long deliveredAt;
+
+    /** Marca de tiempo en la que el envío fue procesado por este servicio. */
+    private Long processedAt;
+
+    /** Identificador para trazabilidad en flujos distribuidos. */
+    private String correlationId;
+
+    /** Número de intentos realizados para despachar o entregar el envío. */
+    private Integer attemptNumber;
+
+    /** Payload original recibido del evento Kafka. */
+    private String rawPayload;
+
+    /** Mensaje de error en caso de que ocurra un fallo en el proceso. */
+    private String errorMessage;
 }
